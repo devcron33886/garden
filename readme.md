@@ -1,0 +1,1 @@
+This is a web application (Website) That hepls Gardern Of Eden to sell their products to their clients. It is built in Laravel on top of PHP and Mysql

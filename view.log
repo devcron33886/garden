@@ -1,0 +1,100 @@
+PHP Fatal error:  Uncaught Error: Call to undefined function Symfony\Component\Debug\Exception\get_debug_type() in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php:29
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(77): Symfony\Component\Debug\Exception\FatalThrowableError->__construct(Object(Error))
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#2 {main}
+  thrown in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php on line 29
+PHP Fatal error:  Uncaught Error: Call to undefined function Symfony\Component\Debug\Exception\get_debug_type() in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php:29
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(77): Symfony\Component\Debug\Exception\FatalThrowableError->__construct(Object(Error))
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#2 {main}
+  thrown in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php on line 29
+PHP Fatal error:  Uncaught Error: Call to undefined function Symfony\Component\Debug\Exception\get_debug_type() in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php:29
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(77): Symfony\Component\Debug\Exception\FatalThrowableError->__construct(Object(Error))
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#2 {main}
+  thrown in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php on line 29
+PHP Fatal error:  Uncaught Error: Call to undefined function Symfony\Component\Debug\Exception\get_debug_type() in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php:29
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(77): Symfony\Component\Debug\Exception\FatalThrowableError->__construct(Object(Error))
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#2 {main}
+  thrown in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php on line 29
+PHP Fatal error:  Uncaught Error: Call to undefined function Symfony\Component\Debug\Exception\get_debug_type() in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php:29
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(77): Symfony\Component\Debug\Exception\FatalThrowableError->__construct(Object(Error))
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#2 {main}
+  thrown in /var/www/html/vendor/symfony/debug/Exception/FatalThrowableError.php on line 29
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444
+PHP Fatal error:  Uncaught ErrorException: include(/var/www/html/vendor/composer/../jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php): failed to open stream: No such file or directory in /var/www/html/vendor/composer/ClassLoader.php:444
+Stack trace:
+#0 /var/www/html/vendor/composer/ClassLoader.php(444): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/var/ww...', '/var/www/html/v...', 444, Array)
+#1 /var/www/html/vendor/composer/ClassLoader.php(444): include()
+#2 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('JakubOnderka\\Ph...')
+#4 /var/www/html/vendor/nunomaduro/collision/src/Highlighter.php(23): spl_autoload_call('JakubOnderka\\Ph...')
+#5 /var/www/html/vendor/composer/ClassLoader.php(444): include('/var/www/html/v...')
+#6 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/v...')
+#7 [inter in /var/www/html/vendor/composer/ClassLoader.php on line 444

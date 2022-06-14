@@ -1,0 +1,2 @@
+INSERT INTO fshop.events (name, description, active, date, created_at, updated_at) VALUES ('Event name', 'Event description', 0, '2018-07-27', null, null);
+INSERT INTO fshop.events (name, description, active, date, created_at, updated_at) VALUES ('Event name', 'Event description', 0, '2018-07-27', null, null);
