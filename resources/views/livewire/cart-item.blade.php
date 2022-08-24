@@ -12,9 +12,9 @@
     <td>
         <h5>{{ $cartItem->name }}</h5>
     </td>
-    <td>
+   <td>
         <p>
-            {{ $cartItem->getPriceSum() }}
+            {{ number_format($cartItem->price) }}
             <small>Rwf</small> /
             {{ $product->measure }}
         </p>
@@ -32,7 +32,7 @@
                         wire:loading.attr="disabled"
                         class="btn btn-default btn-cart text-capitalize"
                         title="Click here to update Quantity."
-{{--                        wire:click="update"--}}
+                       wire:click="update"
                         data-toggle="tooltip" data-placement="right"
                         type="submit">
                     <i class="fa fa-plus"></i>
@@ -41,14 +41,14 @@
             </div>
         </form>
 
-    </td>
+    </td> 
 
-    <td>
+     <td>
         <p>
-            {{ number_format($cartItem->getPriceSum()) }}
+             {{ number_format($cartItem->price * $cartItem->quantity ) }}
             <small>Rwf</small>
         </p>
-    </td>
+    </td> 
 
     <td>
         <button class="cart-remove-btn btn-xs btn-default btn" wire:loading.attr="disabled"

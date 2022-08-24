@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use Cart;
+
 use App\Product;
+use Cart;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class ProductItem extends Component
@@ -16,7 +20,7 @@ class ProductItem extends Component
         $this->quantity = 1;
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.product-item', [
             'added' => Cart::get($this->product->id)
