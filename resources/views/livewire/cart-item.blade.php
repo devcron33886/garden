@@ -14,7 +14,7 @@
     </td>
     <td>
         <p>
-            {{ number_format($cartItem->price) }}
+            {{ $cartItem->getPriceSum() }}
             <small>Rwf</small> /
             {{ $product->measure }}
         </p>
