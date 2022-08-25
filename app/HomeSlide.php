@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $image_url
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|HomeSlide newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|HomeSlide newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|HomeSlide query()
@@ -31,11 +32,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class HomeSlide extends Model
 {
-
     protected $appends = ['image_url'];
 
     public function getImageUrlAttribute()
     {
-        return asset('storage/images/slides' . $this->image);
+        return asset('storage/images/slides'.$this->image);
     }
 }

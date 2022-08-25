@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param UrlGenerator $url
+     * @param  UrlGenerator  $url
      * @return void
      */
     public function boot(UrlGenerator $url)
@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('defaultSetting', Setting::first());
         View::share('categories', Category::withCount('products')->latest()->get());
-
     }
 
     /**
@@ -36,6 +35,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 }

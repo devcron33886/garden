@@ -8,44 +8,43 @@ use App\MyFunc;
 use App\Order;
 use App\Setting;
 use DB;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class HomeController extends Controller
 {
-
     public function index()
     {
         $slides = HomeSlide::query()->where('is_active', '=', true)->get();
         $categories = Category::query()->whereHas('products')->get();
+
         return view('home', compact('categories', 'slides'));
     }
 
     public function dashboard()
     {
-
-        $revenues = DB::table("orders")
-            ->select(DB::raw("YEAR(orders.created_at) as year"), DB::raw("sum(order_items.sub_total) + orders.shipping_amount as amount"))
-            ->join('order_items', "order_items.order_id", "=", "orders.id")
-            ->join('products', "products.id", "=", "order_items.product_id")
+        $revenues = DB::table('orders')
+            ->select(DB::raw('YEAR(orders.created_at) as year'), DB::raw('sum(order_items.sub_total) + orders.shipping_amount as amount'))
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'order_items.product_id')
             ->where('orders.status', '=', Order::PAID)
             ->orderByDesc('year')
-            ->groupBy("year")->limit(5)->get()->sortBy('year')->values();
+            ->groupBy('year')->limit(5)->get()->sortBy('year')->values();
 //        return $revenues->sortBy('year')->values();
 
         return view('admins.dashboard', compact('revenues'));
     }
 
-
     public function settings()
     {
         $setting = MyFunc::getDefaultSetting();
-        if (!$setting) abort(404);
+        if (! $setting) {
+            abort(404);
+        }
+
         return view('admins.settings', ['setting' => $setting]);
     }
-
 
     /**
      * @throws ValidationException
@@ -62,8 +61,7 @@ class HomeController extends Controller
         ]);
 
         $setting = MyFunc::getDefaultSetting();
-        if (!$setting)
-        {
+        if (! $setting) {
             $setting = new Setting();
         }
         $setting->company_name = $request->input('company_name');

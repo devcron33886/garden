@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Cache;
  * @property \Carbon\Carbon $updated_at
  * @property string company_name
  * @property string whatsapp
+ *
  * @method static orderBy(string $string, string $string1)
+ *
  * @property string $about
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting query()

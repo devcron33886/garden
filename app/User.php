@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-
 /**
  * App\User
  *
@@ -32,6 +31,7 @@ use Laravel\Passport\HasApiTokens;
  * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
@@ -76,8 +76,4 @@ class User extends Model implements Authenticatable, \Illuminate\Contracts\Auth\
         {
             $this->notify(new ResetPassword($token));
         }*/
-
-
 }
-
-

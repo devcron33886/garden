@@ -2,11 +2,11 @@
 
 namespace App\Notifications;
 
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Notifications\Notification;
 
 class ResetPassword extends ResetPasswordNotification implements ShouldQueue
 {
@@ -29,7 +29,7 @@ class ResetPassword extends ResetPasswordNotification implements ShouldQueue
         return (new MailMessage)
             ->subject('Reset Password')
             ->line('You are receiving this email because we received a password reset request for your account.')
-            ->from(env('COMPANY_EMAIL','frankuwuzuyinema@yahoo.fr'),'Garden of Eden Produce')
+            ->from(env('COMPANY_EMAIL', 'frankuwuzuyinema@yahoo.fr'), 'Garden of Eden Produce')
             ->action('Reset Password', route('password.reset', ['token' => $this->token]))
             ->line('If you did not request a password reset, no further action is required.');
     }
@@ -37,7 +37,7 @@ class ResetPassword extends ResetPasswordNotification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)

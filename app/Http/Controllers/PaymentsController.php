@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\ProcessOrder;
-use App\MyFunc;
 use App\Order;
-use App\OrderItem;
 use App\Payment;
-use Cart;
 use DB;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Throwable;
 
 class PaymentsController extends Controller
@@ -38,13 +32,14 @@ class PaymentsController extends Controller
         $order->payments()->save($payment);
 
         DB::commit();
+
         return response()->json(['url' => route('order.success', ['id' => encryptId($order->id)])]);
     }
 
     public function payWithCard($id)
     {
         $order = Order::find(decryptId($id));
-        return view('clients.pay_card', compact('order'));
 
+        return view('clients.pay_card', compact('order'));
     }
 }

@@ -5,24 +5,21 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use Exception;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Log;
 
 class ProductsController extends Controller
 {
-
     public function index()
     {
         $categories = Category::all();
+
         return view('admins.products', compact('categories'));
     }
 
     public function all(Request $request)
     {
-        $columns = array(
+        $columns = [
             0 => 'id',
             1 => 'name',
             2 => 'category',
@@ -30,8 +27,8 @@ class ProductsController extends Controller
             4 => 'price',
             3 => 'measure',
             6 => 'minStock',
-            7 => 'status'
-        );
+            7 => 'status',
+        ];
 
         $totalData = Product::query()->withoutGlobalScope('active')->count();
         $totalFiltered = $totalData;
@@ -44,7 +41,7 @@ class ProductsController extends Controller
         if (empty($request->input('search.value'))) {
             $products = Product::with('category')
                 ->withoutGlobalScope('active')
-                
+
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
@@ -53,7 +50,7 @@ class ProductsController extends Controller
             $search = $request->input('search.value');
             $products = Product::with('category')
                 ->withoutGlobalScope('active')
-                
+
                 ->where('price', 'LIKE', "%{$search}%")
                 ->orWhere('name', 'LIKE', "%{$search}%")
                 ->orWhere('description', 'LIKE', "%{$search}%")
@@ -63,16 +60,18 @@ class ProductsController extends Controller
                 ->get();
 
             $totalFiltered = Product::with('category')->withoutGlobalScope('active')
-                
+
                 ->where('price', 'LIKE', "%{$search}%")
                 ->orWhere('name', 'LIKE', "%{$search}%")
                 ->count();
         }
-//return $products;
-        $data = array();
-        if (!empty($products)) {
+        //return $products;
+        $data = [];
+        if (! empty($products)) {
             foreach ($products as $product) {
-                if (is_null($product->category)) continue;
+                if (is_null($product->category)) {
+                    continue;
+                }
                 $nestedData['id'] = $product->id;
                 $nestedData['name'] = $product->name;
                 $nestedData['measure'] = $product->measure;
@@ -82,20 +81,19 @@ class ProductsController extends Controller
                 $nestedData['discount'] = $product->discount;
                 $nestedData['status'] = $product->status;
                 $nestedData['category'] = $product->category->name;
-                $nestedData['image'] = asset("uploads/products/" . $product->image);
-                $nestedData['description'] = substr(strip_tags($product->description), 0, 50) . "...";
+                $nestedData['image'] = asset('uploads/products/'.$product->image);
+                $nestedData['description'] = substr(strip_tags($product->description), 0, 50).'...';
                 $nestedData['created_at'] = date('j M Y h:i a', strtotime($product->created_at));
                 $data[] = $nestedData;
-
             }
         }
 
-        $json_data = array(
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data
-        );
+        $json_data = [
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $data,
+        ];
         echo json_encode($json_data);
     }
 
@@ -110,11 +108,13 @@ class ProductsController extends Controller
             'qty' => 'required|numeric',
             'measure' => 'required',
             'minStock' => 'required',
-            'status' => 'required'
+            'status' => 'required',
         ]);
 
         $category = Category::query()->withoutGlobalScopes()->find($request->input('category'));
-        if (!$category) return response()->json(["message" => "Not found"], 404);
+        if (! $category) {
+            return response()->json(['message' => 'Not found'], 404);
+        }
 
         $product = new Product();
         $product->name = $request['name'];
@@ -126,28 +126,28 @@ class ProductsController extends Controller
         $product->description = $request['description'];
         $product->status = $request['status'];
 
-        $photoName = time() . '.' . $request->image->getClientOriginalExtension();
+        $photoName = time().'.'.$request->image->getClientOriginalExtension();
         $request->image->move(public_path('uploads/products'), $photoName);
         $product->image = $photoName;
 
         $category->products()->save($product);
+
         return response()->json($product, 201);
     }
-
 
     public function show($id)
     {
         //
         $obj = Product::with('category')->withoutGlobalScope('active')->find($id);
-        if (!$obj) {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $obj) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
+
         return \response()->json($obj, 200);
     }
 
     public function update(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
             'category' => 'required|numeric',
@@ -156,12 +156,13 @@ class ProductsController extends Controller
             'qty' => 'required|numeric',
             'measure' => 'required',
             'minStock' => 'required',
-            'status' => 'required'
+            'status' => 'required',
         ]);
 
-
         $obj = Product::query()->withoutGlobalScopes()->find($request->input('id'));
-        if (!$obj) return \response()->json(["message" => "Product Not found"], 404);
+        if (! $obj) {
+            return \response()->json(['message' => 'Product Not found'], 404);
+        }
 
         $obj->name = $request['name'];
         $obj->price = $request['price'];
@@ -173,37 +174,39 @@ class ProductsController extends Controller
         $obj->status = $request['status'];
         $image = $obj->image;
         if ($request->image != null) {
-            $photoName = time() . '.' . $request->image->getClientOriginalExtension();
+            $photoName = time().'.'.$request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/products'), $photoName);
             $obj->image = $photoName;
 
-            $path = public_path() . '/uploads/products/' . $image;
+            $path = public_path().'/uploads/products/'.$image;
             if (File::exists($path)) {
                 File::delete($path);
             }
         }
         $obj->category_id = $request->input('category');
         $obj->update();
+
         return response()->json($obj, 204);
     }
 
     public function destroy($id)
     {
         $obj = Product::query()->withoutGlobalScopes()->find($id);
-        if (!$obj) {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $obj) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
-        $path = public_path() . '/uploads/products/' . $obj->image;
+        $path = public_path().'/uploads/products/'.$obj->image;
 
         $obj->delete();
 
         $obj = Product::query()->withoutGlobalScopes()->find($id);
-        if (!$obj) {
+        if (! $obj) {
             if (File::exists($path)) {
                 File::delete($path);
             }
         }
-        return \response()->json(["message" => "Data deleted"], 200);
+
+        return \response()->json(['message' => 'Data deleted'], 200);
     }
 
     public function deleteSelected(Request $request)
@@ -216,6 +219,7 @@ class ProductsController extends Controller
 //                echo $exception->getMessage().'<br>';
             }
         }
-        return \response()->json(["message" => "Data deleted"], 200);
+
+        return \response()->json(['message' => 'Data deleted'], 200);
     }
 }

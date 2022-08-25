@@ -13,13 +13,14 @@ class OrderStatusChanged extends Mailable
     use Queueable, SerializesModels;
 
     public $order;
+
     public $user;
 
     /**
      * Create a new message instance.
      *
-     * @param Order $order
-     * @param User $user
+     * @param  Order  $order
+     * @param  User  $user
      */
     public function __construct(Order $order, User $user)
     {
@@ -38,6 +39,7 @@ class OrderStatusChanged extends Mailable
         $address = 'frankuwuzuyinema@yahoo.fr';
         $subject = "Order ($orderNumber) status changed";
         $name = 'Garden Of Eden Produce';
+
         return $this->markdown('emails.order_status_changed')
             ->from($address, $name)
             ->cc($address, $name)

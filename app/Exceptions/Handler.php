@@ -32,15 +32,14 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param Throwable $exception
+     * @param  Throwable  $exception
      * @return void
+     *
      * @throws Throwable
      */
     public function report(Throwable $exception)
     {
-
-        if (app()->bound('sentry') && $this->shouldReport($exception))
-        {
+        if (app()->bound('sentry') && $this->shouldReport($exception)) {
             app('sentry')->captureException($exception);
         }
 
@@ -50,9 +49,10 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param Request $request
-     * @param Throwable $e
+     * @param  Request  $request
+     * @param  Throwable  $e
      * @return Response
+     *
      * @throws Throwable
      */
     public function render($request, Throwable $e)
@@ -62,11 +62,9 @@ class Handler extends ExceptionHandler
 
     protected function whoopsHandler()
     {
-        try
-        {
+        try {
             return app(\Whoops\Handler\HandlerInterface::class);
-        } catch (\Illuminate\Contracts\Container\BindingResolutionException $e)
-        {
+        } catch (\Illuminate\Contracts\Container\BindingResolutionException $e) {
             return parent::whoopsHandler();
         }
     }

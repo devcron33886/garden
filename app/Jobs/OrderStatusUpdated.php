@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\OrderPlaced;
 use App\Mail\OrderStatusChanged;
 use App\Order;
 use App\User;
@@ -18,14 +17,16 @@ class OrderStatusUpdated implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $order;
+
     protected $user;
+
     public $tries = 5;
 
     /**
      * Create a new job instance.
      *
-     * @param Order $order
-     * @param User $user
+     * @param  Order  $order
+     * @param  User  $user
      */
     public function __construct(Order $order, User $user)
     {

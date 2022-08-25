@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property array|null|string shipping_address
  * @property string status
  * @property array|null|string clientName
- * @property double shipping_amount
+ * @property float shipping_amount
  * @property array|null|string email
  * @property string notes
  * @property mixed order_no
@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read Collection|OrderItem[] $orderItems
  * @property-read int|null $order_items_count
  * @property mixed payment_type
+ *
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()
@@ -50,15 +51,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Order extends Model
 {
     public static $shippingCharge = 1000;
+
     const PENDING = 'Pending';
+
     const PROCESSING = 'Processing';
+
     const ON_WAY = 'On Way';
+
     const DELIVERED = 'Delivered';
+
     const CANCELLED = 'Cancelled';
+
     const PAID = 'Paid';
 
     protected $appends = ['amount_to_pay'];
-
 
     public function orderItems()
     {
@@ -82,13 +88,12 @@ class Order extends Model
 
     public static function getStatuses(): array
     {
-
         return [self::PENDING, self::PROCESSING, self::ON_WAY, self::DELIVERED, self::PAID, self::CANCELLED];
     }
 
     public function setOrderNo(string $prefix = 'ORD', $pad_string = '0', int $len = 8)
     {
-        $orderNo = $prefix . str_pad($this->id, $len, $pad_string, STR_PAD_LEFT);
+        $orderNo = $prefix.str_pad($this->id, $len, $pad_string, STR_PAD_LEFT);
         $this->order_no = $orderNo;
         $this->update();
     }

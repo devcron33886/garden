@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
 use App\Product;
 use Cart;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,6 +12,7 @@ use Livewire\Component;
 class ProductItem extends Component
 {
     public $product;
+
     public $quantity;
 
     public function mount(Product $product)
@@ -23,7 +23,7 @@ class ProductItem extends Component
     public function render(): Factory|View|Application
     {
         return view('livewire.product-item', [
-            'added' => Cart::get($this->product->id)
+            'added' => Cart::get($this->product->id),
         ]);
     }
 
@@ -32,7 +32,7 @@ class ProductItem extends Component
         Cart::remove($this->product->id);
         $this->emit('productRemoved');
 
-        session()->flash('success', $this->product->name . " Successfully removed to cart");
+        session()->flash('success', $this->product->name.' Successfully removed to cart');
     }
 
     public function add()
@@ -40,9 +40,9 @@ class ProductItem extends Component
         $product = $this->product;
         $quantity = $this->quantity;
 
-        if ($product->status !== 'Available' || $quantity <= 0)
-        {
-            session()->flash('error', "Product not available");
+        if ($product->status !== 'Available' || $quantity <= 0) {
+            session()->flash('error', 'Product not available');
+
             return back();
         }
 
@@ -53,13 +53,14 @@ class ProductItem extends Component
             'id' => $id,
             'name' => $product->name,
             'quantity' => $quantity,
-            'price' => $product->getRealPrice()
+            'price' => $product->getRealPrice(),
         ]);
         $cartItem->associate($product);
 
         $this->emit('productAdded');
 
-        session()->flash('success', $product->name . " Successfully added to cart");
+        session()->flash('success', $product->name.' Successfully added to cart');
+
         return back();
     }
 }

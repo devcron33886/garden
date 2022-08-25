@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -23,7 +22,7 @@ class OrderPlaced extends Mailable
     {
         $address = 'frankuwuzuyinema@yahoo.fr';
         $order = $this->order;
-        $subject = 'New order! Order# ' . $order->order_no;
+        $subject = 'New order! Order# '.$order->order_no;
         $name = 'Garden Of Eden Produce';
 
         return $this->markdown('emails.order_placed')

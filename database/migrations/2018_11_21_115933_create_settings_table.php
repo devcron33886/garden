@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSettingsTable extends Migration
 {
@@ -16,11 +16,11 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('company_name');
-            $table->string('phoneNumber1',13);
-            $table->string('phoneNumber2',13);
-            $table->string('whatsapp',13);
-            $table->string('email1',100);
-            $table->string('email2',100);
+            $table->string('phoneNumber1', 13);
+            $table->string('phoneNumber2', 13);
+            $table->string('whatsapp', 13);
+            $table->string('email1', 100);
+            $table->string('email2', 100);
             $table->string('address');
             $table->string('logo')->default('');
             $table->longText('about')->nullable();

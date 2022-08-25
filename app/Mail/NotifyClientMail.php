@@ -2,12 +2,12 @@
 
 namespace App\Mail;
 
+use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifyEmailClients extends Mailable
+class NotifyClientMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,8 @@ class NotifyEmailClients extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public Order $order)
     {
-        //
     }
 
     /**
@@ -28,6 +27,7 @@ class NotifyEmailClients extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.notify_clients');
+        $this->subject('Your order has been placed');
+        return $this->markdown('emails.notify-client-mail');
     }
 }

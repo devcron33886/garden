@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
-
     public function shopProducts(Request $request)
     {
         $cat = $request->input('cat');
@@ -39,7 +38,6 @@ class ClientController extends Controller
         return view('clients.products', compact('products'));
     }
 
-
     public function register()
     {
         return view('auth.register');
@@ -50,7 +48,7 @@ class ClientController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'user_name' => 'required|unique:users',
-            'password' => 'required|min:4|confirmed'
+            'password' => 'required|min:4|confirmed',
         ]);
 
         $user = new User();
@@ -66,6 +64,7 @@ class ClientController extends Controller
             // Authentication passed...
             return redirect()->route('home');
         }
+
         return redirect()->route('login')->with('message', 'Please login to continue.');
     }
 
@@ -81,7 +80,6 @@ class ClientController extends Controller
 
     public function myOrders(Request $request)
     {
-
         $totalData = Order::with('user')
             ->where('user_id', Auth::user()->id)
             ->count();
@@ -116,8 +114,8 @@ class ClientController extends Controller
                 ->count();
         }
 
-        $data = array();
-        if (!empty($orders)) {
+        $data = [];
+        if (! empty($orders)) {
             foreach ($orders as $order) {
                 $nestedData['id'] = $order->id;
                 $nestedData['status'] = $order->status;
@@ -127,12 +125,12 @@ class ClientController extends Controller
             }
         }
 
-        $json_data = array(
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data
-        );
+        $json_data = [
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $data,
+        ];
         echo json_encode($json_data);
     }
 

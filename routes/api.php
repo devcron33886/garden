@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::namespace('API')->group(function () {
     Route::post('login', 'UsersController@login');
     Route::post('register', 'UsersController@register');

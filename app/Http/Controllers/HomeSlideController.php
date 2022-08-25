@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\FileManager;
-use App\Http\Requests\ValidateHomeSlide;
 use App\HomeSlide;
+use App\Http\Requests\ValidateHomeSlide;
 use Illuminate\Support\Facades\Storage;
 
 class HomeSlideController extends Controller
@@ -12,6 +12,7 @@ class HomeSlideController extends Controller
     public function index()
     {
         $slides = HomeSlide::all();
+
         return view('admins.home_slides', compact('slides'));
     }
 
@@ -33,7 +34,7 @@ class HomeSlideController extends Controller
 
         if ($request->hasFile('image')) {
             $PATH = FileManager::PUBLIC_SLIDES;
-            Storage::delete($PATH . $model->image);
+            Storage::delete($PATH.$model->image);
 
             $file = $request->file('image');
             $path = $file->store($PATH);
@@ -43,6 +44,7 @@ class HomeSlideController extends Controller
 
         $model->save();
         session()->flash('success', 'Slide successfully saved');
+
         return back();
     }
 
@@ -54,16 +56,15 @@ class HomeSlideController extends Controller
     public function destroy(HomeSlide $slide)
     {
         try {
-
             $slide->delete();
 
             $PATH = FileManager::PUBLIC_SLIDES;
-            Storage::delete($PATH . $slide->image);
-
+            Storage::delete($PATH.$slide->image);
         } catch (Exception $e) {
             return \response()->json('Unable to delete product', 400);
         }
         session()->flash('success', 'Slide successfully deleted');
+
         return back();
     }
 }

@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\ProcessOrder;
+use App\Mail\NotifyClientMail;
 use App\MyFunc;
 use App\Order;
 use App\OrderItem;
 use App\Payment;
 use App\Product;
+use Cart;
 use DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Cart;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+use Mail;
 use Throwable;
 
 class CartController extends Controller
 {
-
     public function getAddToCart(Request $request, $id)
     {
         $product = Product::find($id);
@@ -27,7 +26,7 @@ class CartController extends Controller
         }
 
         $qty = $request->input('qty');
-        if (!$qty) {
+        if (! $qty) {
             $qty = 1;
         }
 
@@ -35,7 +34,7 @@ class CartController extends Controller
             'id' => $product->id,
             'name' => $product->name,
             'quantity' => $qty,
-            'price' => $product->getRealPrice()
+            'price' => $product->getRealPrice(),
         ]);
         $cartItem->associate($product);
 
@@ -50,7 +49,7 @@ class CartController extends Controller
     public function getIncrement(Request $request, $id)
     {
         $qty = $request->input('qty');
-        if (!$qty) {
+        if (! $qty) {
             $qty = 1;
         }
 
@@ -60,7 +59,7 @@ class CartController extends Controller
             'id' => $product->id,
             'name' => $product->name,
             'quantity' => $qty,
-            'price' => $product->getRealPrice()
+            'price' => $product->getRealPrice(),
         ]);
         $cartItem->associate($product);
 
@@ -70,9 +69,9 @@ class CartController extends Controller
     public function getDecrement($id)
     {
         // you may also want to update a product by reducing its quantity, you do this like so:
-        Cart::update($id, array(
+        Cart::update($id, [
             'quantity' => -1, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
-        ));
+        ]);
 
         return redirect()->route('cart.shoppingCart');
     }
@@ -84,12 +83,14 @@ class CartController extends Controller
     public function getRemoveItem($id)
     {
         Cart::remove($id);
+
         return redirect()->route('cart.shoppingCart');
     }
 
     public function getRemoveAll()
     {
         Cart::clear();
+
         return redirect()->route('cart.shoppingCart');
     }
 
@@ -99,6 +100,7 @@ class CartController extends Controller
             return redirect()->route('cart.shoppingCart');
         }
         $cart = Cart::getContent();
+
         return view('clients.check-out', ['cart' => $cart]);
     }
 
@@ -112,7 +114,7 @@ class CartController extends Controller
             'clientName' => 'required',
             'email' => 'required|email',
             'shipping_address' => 'required',
-            'phoneNumber' => 'required| min:10'
+            'phoneNumber' => 'required| min:10',
         ]);
 
         if (Cart::isEmpty()) {
@@ -127,7 +129,7 @@ class CartController extends Controller
         $order->payment_type = Payment::Cash;
         $order->notes = $request->input('notes');
         $order->shipping_amount = MyFunc::getDefaultSetting()->shipping_amount;
-        $order->status = "Pending";
+        $order->status = 'Pending';
         $order->save();
 
         $cart = Cart::getContent();
@@ -142,8 +144,8 @@ class CartController extends Controller
 
         $order->setOrderNo('ORD');
         DB::commit();
+        Mail::to($order->email)->send(new NotifyClientMail($order));
 
-        ProcessOrder::dispatch($order);
         Cart::clear();
         if ($request->input('payment_type') == Payment::CARD_MOBILE_MONEY) {
             return redirect()->route('order.pay.card', ['id' => encryptId($order->id)]);

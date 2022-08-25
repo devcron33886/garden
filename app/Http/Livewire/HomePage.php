@@ -7,11 +7,11 @@ use Livewire\Component;
 class HomePage extends Component
 {
     public $slides;
+
     public $categories;
 
     public function mount($slides, $categories)
     {
-
     }
 
     public function render()

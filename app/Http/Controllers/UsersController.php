@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Notification;
 
 class UsersController extends Controller
 {
-
     public function index()
     {
         return view('admins.users');
@@ -19,11 +18,11 @@ class UsersController extends Controller
 
     public function all(Request $request)
     {
-        $columns = array(
+        $columns = [
             0 => 'name',
             1 => 'email',
-            2 => 'role'
-        );
+            2 => 'role',
+        ];
 
         $totalData = User::whereNotIn('role', ['Client', Role::SUPER_ADMIN])->count();
         $totalFiltered = $totalData;
@@ -33,15 +32,12 @@ class UsersController extends Controller
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
 
-        if (empty($request->input('search.value')))
-        {
+        if (empty($request->input('search.value'))) {
             $users = User::whereNotIn('role', ['Client', Role::SUPER_ADMIN])->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
-        }
-        else
-        {
+        } else {
             $search = $request->input('search.value');
 
             $users = User::whereNotIn('role', ['Client', Role::SUPER_ADMIN])
@@ -59,39 +55,35 @@ class UsersController extends Controller
                 ->count();
         }
 
-        $data = array();
-        if (!empty($users))
-        {
-            foreach ($users as $user)
-            {
+        $data = [];
+        if (! empty($users)) {
+            foreach ($users as $user) {
                 $nestedData['id'] = $user->id;
                 $nestedData['name'] = $user->name;
                 $nestedData['email'] = $user->email;
                 $nestedData['role'] = $user->role;
                 $nestedData['created_at'] = date('j M Y h:i a', strtotime($user->created_at));
                 $data[] = $nestedData;
-
             }
         }
 
-        $json_data = array(
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data
-        );
+        $json_data = [
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $data,
+        ];
         echo json_encode($json_data);
     }
-
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
-//            'user_name' => 'required|unique:users',
+            //            'user_name' => 'required|unique:users',
             'email' => 'required|unique:users',
             'role' => 'required',
-            'password' => 'required|min:4'
+            'password' => 'required|min:4',
         ]);
 
         $user = new User();
@@ -101,33 +93,32 @@ class UsersController extends Controller
         $user->role = $request['role'];
         $user->password = bcrypt($request['password']);
         $user->save();
+
         return response()->json($user, 201);
     }
-
 
     public function show($id)
     {
         //
         $obj = User::find($id);
-        if (!$obj)
-        {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $obj) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
+
         return \response()->json($obj, 200);
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
-//            'user_name' => 'required',
+            //            'user_name' => 'required',
             'email' => 'required',
-            'role' => 'required'
+            'role' => 'required',
         ]);
 
         $email = $request['email'];
@@ -135,63 +126,63 @@ class UsersController extends Controller
         $id = $request->input('id');
 
         $obj = User::find($id);
-        if (!$obj) return response()->json(['message' => 'Not found'], 404);
+        if (! $obj) {
+            return response()->json(['message' => 'Not found'], 404);
+        }
 
         $obj->name = $request['name'];
         $obj->user_name = $email;
         $obj->email = $email;
 
-        if (!empty($password))
-        {
+        if (! empty($password)) {
             $obj->password = bcrypt($password);
         }
 
         $obj->role = $request['role'];
         $obj->update();
+
         return response()->json($obj, 200);
     }
 
     public function destroy($id)
     {
         $obj = User::find($id);
-        if (!$obj)
-        {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $obj) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
         $obj->delete();
-        return \response()->json(["message" => "Data deleted"], 200);
-    }
 
+        return \response()->json(['message' => 'Data deleted'], 200);
+    }
 
     public function login()
     {
-        return view("auth.login");
+        return view('auth.login');
     }
 
     public function postLogin(Request $request)
     {
         $this->validate($request, [
             'user_name' => 'required',
-            'password' => 'required|min:4'
+            'password' => 'required|min:4',
         ]);
 
         $credentials = $request->only('user_name', 'password');
 
         $attempt = \auth()->attempt($credentials, \request('remember') ? true : false);
-        if ($attempt)
-        {
+        if ($attempt) {
             $user = \auth()->user();
 
             Notification::route('slack', config('app.LOG_SLACK_WEBHOOK_URL'))
-                ->notify(new InfoSlackNotification($user->name . " Logged in on " . $request->userAgent() . " ,with IP=" . $request->ip()));
+                ->notify(new InfoSlackNotification($user->name.' Logged in on '.$request->userAgent().' ,with IP='.$request->ip()));
 
-
-            if (in_array($user->role, Role::roles()))
-            {
+            if (in_array($user->role, Role::roles())) {
                 return redirect()->route('dashboard');
             }
+
             return redirect()->home();
         }
+
         return redirect()->back()
             ->with('message', 'Incorrect email or password')
             ->withErrors(['password' => 'Incorrect email or password'])
@@ -201,15 +192,15 @@ class UsersController extends Controller
     public function logOut()
     {
         $user = Auth::user();
-        if ($user->role === 'Client')
-        {
+        if ($user->role === 'Client') {
             Auth::logout();
+
             return redirect()->route('home');
         }
         Notification::route('slack', config('app.LOG_SLACK_WEBHOOK_URL'))
-            ->notify(new InfoSlackNotification($user->name . " Logged out"));
+            ->notify(new InfoSlackNotification($user->name.' Logged out'));
         Auth::logout();
+
         return view('auth.login');
     }
-
 }

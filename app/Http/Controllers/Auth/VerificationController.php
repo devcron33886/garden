@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Routing\Controller;
 
 class VerificationController extends Controller
 {
@@ -30,7 +29,6 @@ class VerificationController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      */
     public function __construct()
     {

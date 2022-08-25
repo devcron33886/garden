@@ -1,11 +1,9 @@
 <?php
 
-
 use App\Http\Livewire\CardProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
-
 
 Livewire::component('card-product', CardProduct::class);
 
@@ -13,7 +11,6 @@ Auth::routes();
 
 Route::post('/newsletters/subscribe', 'NewsletterController@subscribe')->name('newsletters.subscribe');
 Route::get('/newsletters/{email}/unsubscribe', 'NewsletterController@unsubscribe')->name('newsletters.unsubscribe');
-
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
@@ -24,40 +21,37 @@ Route::get('/products/{product}/details-view', 'ClientController@productDetails'
 Route::get('/login', 'UsersController@login')->name('login');
 Route::post('/admin/login', 'UsersController@postLogin')->name('post.login');
 
-
 Route::get('/addToCart/{id}', ['uses' => 'CartController@getAddToCart', 'as' => 'cart.addToCart']);
 Route::get('/shoppingCart', ['uses' => 'CartController@getShoppingCart', 'as' => 'cart.shoppingCart']);
 
 Route::get('/remove/cart/item/{id}', [
     'uses' => 'CartController@getRemoveItem',
-    'as' => 'cart.removeItem'
+    'as' => 'cart.removeItem',
 ]);
 Route::get('/remove/cart', [
     'uses' => 'CartController@getRemoveAll',
-    'as' => 'cart.removeAll'
+    'as' => 'cart.removeAll',
 ]);
 
 Route::get('/increment/cart/item/{id}', [
     'uses' => 'CartController@getIncrement',
-    'as' => 'cart.increment'
+    'as' => 'cart.increment',
 ]);
 
 Route::get('/decrement/cart/item/{id}', [
     'uses' => 'CartController@getDecrement',
-    'as' => 'cart.decrement'
+    'as' => 'cart.decrement',
 ]);
 
-
 Route::group(['prefix' => 'customer'], function () {
-
     Route::get('/check-out', [
         'uses' => 'CartController@checkOut',
-        'as' => 'cart.get.checkout'
+        'as' => 'cart.get.checkout',
     ]);
 
     Route::post('/check-out', [
         'uses' => 'CartController@postCheckOut',
-        'as' => 'cart.checkOut'
+        'as' => 'cart.checkOut',
     ]);
 
     Route::get('/order-success/{id}', 'OrderController@orderSuccess')->name('order.success');
@@ -65,9 +59,7 @@ Route::group(['prefix' => 'customer'], function () {
     Route::post('/payment/{orderId}/save-transaction', [\App\Http\Controllers\PaymentsController::class, 'paymentSuccess'])->name('payment.success');
 });
 
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'logout']], function () {
-
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('/categories', 'CategoryController@index')->name('category.index');
     Route::post('/categories/all', 'CategoryController@all')->name('category.all');
@@ -115,14 +107,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'logout']], function
     Route::post('/settings', 'HomeController@saveSettings')
         ->name('admin.settings.save');
 
-
     Route::get('/home-slides', 'HomeSlideController@index')->name('slides.index');
     Route::post('/home-slides/store', 'HomeSlideController@store')->name('slides.store');
     Route::get('/home-slides/{slide}/show', 'HomeSlideController@show')->name('slides.show');
     Route::get('/home-slides/{slide}/delete', 'HomeSlideController@destroy')->name('slides.destroy');
 
     Route::get('/newsletters', 'NewsletterController@index')->name('newsletters.index');
-
-
 });
-

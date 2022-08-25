@@ -27,7 +27,7 @@ class AddIsActiveToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['is_active','is_super_admin']);
+            $table->dropColumn(['is_active', 'is_super_admin']);
         });
     }
 }

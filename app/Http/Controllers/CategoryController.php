@@ -15,17 +15,18 @@ class CategoryController extends Controller
     public function newCategories()
     {
         $categories = Category::query()->withoutGlobalScope('active')->get();
+
         return view('admins.new_categories', compact('categories'));
     }
 
     public function all(Request $request)
     {
-        $columns = array(
+        $columns = [
             0 => 'id',
             1 => 'name',
             2 => 'status',
-            3 => 'created_at'
-        );
+            3 => 'created_at',
+        ];
 
         $totalData = Category::query()->withoutGlobalScope('active')->count();
         $totalFiltered = $totalData;
@@ -55,8 +56,8 @@ class CategoryController extends Controller
                 ->count();
         }
 
-        $data = array();
-        if (!empty($categories)) {
+        $data = [];
+        if (! empty($categories)) {
             foreach ($categories as $category) {
                 $nestedData['id'] = $category->id;
                 $nestedData['name'] = $category->name;
@@ -64,16 +65,15 @@ class CategoryController extends Controller
                 /* $nestedData['body'] = substr(strip_tags($category->body),0,50)."...";*/
                 $nestedData['created_at'] = date('j M Y h:i a', strtotime($category->created_at));
                 $data[] = $nestedData;
-
             }
         }
 
-        $json_data = array(
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data
-        );
+        $json_data = [
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $data,
+        ];
         echo json_encode($json_data);
     }
 
@@ -83,28 +83,31 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->status = $request->input('status');
         $category->save();
-        return \response()->json(["message" => "Data saved"], 201);
+
+        return \response()->json(['message' => 'Data saved'], 201);
     }
 
     public function show($id)
     {
         $category = Category::query()->withoutGlobalScopes()->find($id);
-        if (!$category) {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $category) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
+
         return \response()->json($category, 200);
     }
 
     public function update(Request $request)
     {
         $category = Category::query()->withoutGlobalScopes()->find($request->input('id'));
-        if (!$category) {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $category) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
         $category->name = $request->input('name');
         $category->status = $request->input('status');
         $category->update();
-        return \response()->json(["message" => "Data updated"], 204);
+
+        return \response()->json(['message' => 'Data updated'], 204);
     }
 
     public function save(Request $request)
@@ -117,17 +120,18 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->status = $request->input('status');
         $category->save();
-        return \response()->json(["message" => "Data updated"], 204);
-    }
 
+        return \response()->json(['message' => 'Data updated'], 204);
+    }
 
     public function destroy($id)
     {
         $category = Category::query()->withoutGlobalScopes()->find($id);
-        if (!$category) {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $category) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
         $category->delete();
-        return \response()->json(["message" => "Data deleted"], 200);
+
+        return \response()->json(['message' => 'Data deleted'], 200);
     }
 }

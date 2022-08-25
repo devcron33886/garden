@@ -5,23 +5,22 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 
-
 class EventController extends Controller
 {
-
     public function index()
     {
         $event = Event::query()->first();
-        return view("admins.events", compact('event'));
+
+        return view('admins.events', compact('event'));
     }
 
     public function all(Request $request)
     {
-        $columns = array(
+        $columns = [
             0 => 'name',
             1 => 'date',
-            2 => 'description'
-        );
+            2 => 'description',
+        ];
 
         $totalData = Event::count();
         $totalFiltered = $totalData;
@@ -51,8 +50,8 @@ class EventController extends Controller
                 ->count();
         }
 
-        $data = array();
-        if (!empty($users)) {
+        $data = [];
+        if (! empty($users)) {
             foreach ($users as $user) {
                 $nestedData['id'] = $user->id;
                 $nestedData['name'] = $user->name;
@@ -61,29 +60,27 @@ class EventController extends Controller
                 $nestedData['description'] = $user->description;
 //                $nestedData['created_at'] = date('j M Y h:i a', strtotime($user->created_at));
                 $data[] = $nestedData;
-
             }
         }
 
-        $json_data = array(
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data
-        );
+        $json_data = [
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $data,
+        ];
         echo json_encode($json_data);
     }
-
 
     public function show($id)
     {
         $obj = Event::find($id);
-        if (!$obj) {
-            return \response()->json(["message" => "Not found"], 404);
+        if (! $obj) {
+            return \response()->json(['message' => 'Not found'], 404);
         }
+
         return \response()->json($obj, 200);
     }
-
 
     public function update(Request $request)
     {
@@ -101,14 +98,13 @@ class EventController extends Controller
         $obj->date = $request->input('date');
         $obj->description = $request->input('description');
 
-        if (!empty($request->input('active'))) {
+        if (! empty($request->input('active'))) {
             $obj->active = true;
         } else {
             $obj->active = false;
         }
         $obj->save();
+
         return redirect()->back();
     }
-
-
 }

@@ -10,21 +10,22 @@ class LogoutUser
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->user()->is_active)
-        {
+        if (! $request->user()->is_active) {
             auth()->guard()->logout();
 
             $request->session()->invalidate();
 
             $request->session()->regenerateToken();
+
             return redirect()->route('login');
         }
+
         return $next($request);
     }
 }

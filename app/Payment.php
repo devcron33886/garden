@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
@@ -40,8 +41,10 @@ class Payment extends Model
     use HasFactory;
 
     const Cash = 'Cash';
+
     const CARD_MOBILE_MONEY = 'Card mobile money';
 
     const Successful = 'successful';
+
     const Failed = 'failed';
 }

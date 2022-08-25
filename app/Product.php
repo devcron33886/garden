@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $image_url
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
+ *
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static Builder|Product query()
@@ -59,12 +60,12 @@ class Product extends Model
         return $this->hasMany('App\OrderItem');
     }
 
-
     public function getRealPrice()
     {
         if ($this->discount > 0) {
             return $this->price - $this->getDiscountPercent();
         }
+
         return $this->price;
     }
 
@@ -80,13 +81,13 @@ class Product extends Model
 
     public function getImageUrlAttribute($value)
     {
-        $path = 'uploads/products/' . $this->image;
-        if (!file_exists($path)) {
+        $path = 'uploads/products/'.$this->image;
+        if (! file_exists($path)) {
             $path = 'img/no_image.png';
         }
+
         return asset("$path");
     }
-
 
     protected static function boot()
     {
@@ -98,6 +99,4 @@ class Product extends Model
             $builder->whereHas('category');
         });
     }
-
-
 }

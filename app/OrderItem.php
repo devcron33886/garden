@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed $order
  * @property mixed $product
  * @property int product_id
- * @property double price
+ * @property float price
  * @property int qty
- * @property double sub_total
+ * @property float sub_total
  * @property int $id
  * @property int $order_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static Builder|OrderItem newModelQuery()
  * @method static Builder|OrderItem newQuery()
  * @method static Builder|OrderItem query()

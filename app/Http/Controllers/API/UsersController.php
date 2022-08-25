@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +17,8 @@ class UsersController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $success['token'] = $user->createToken('MyApp')->accessToken;
+
             return response()->json(['success' => $success], $this->successStatus);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
@@ -27,7 +28,7 @@ class UsersController extends Controller
     /**
      * Register api
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function register(Request $request)
@@ -43,11 +44,12 @@ class UsersController extends Controller
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $input['role']='client';
-        $input['user_name']=$input['email'];
+        $input['role'] = 'client';
+        $input['user_name'] = $input['email'];
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['user'] =  $user;
+        $success['token'] = $user->createToken('MyApp')->accessToken;
+        $success['user'] = $user;
+
         return response()->json(['success' => $success], $this->successStatus);
     }
 
@@ -59,6 +61,7 @@ class UsersController extends Controller
     public function details()
     {
         $user = Auth::user();
+
         return response()->json(['success' => $user], $this->successStatus);
     }
 }

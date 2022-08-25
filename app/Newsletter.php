@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Newsletter newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Newsletter newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Newsletter query()
