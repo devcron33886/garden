@@ -4,6 +4,8 @@ use App\Http\Livewire\CardProduct;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
+Auth::routes();
+
 Livewire::component('card-product', CardProduct::class);
 
 
@@ -114,6 +116,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/newsletters', 'NewsletterController@index')->name('newsletters.index');
 });
 
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
