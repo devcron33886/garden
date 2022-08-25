@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Livewire\CardProduct;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
 Livewire::component('card-product', CardProduct::class);
 
-Auth::routes();
+
 
 Route::post('/newsletters/subscribe', 'NewsletterController@subscribe')->name('newsletters.subscribe');
 Route::get('/newsletters/{email}/unsubscribe', 'NewsletterController@unsubscribe')->name('newsletters.unsubscribe');
@@ -59,7 +58,7 @@ Route::group(['prefix' => 'customer'], function () {
     Route::post('/payment/{orderId}/save-transaction', [\App\Http\Controllers\PaymentsController::class, 'paymentSuccess'])->name('payment.success');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'logout']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('/categories', 'CategoryController@index')->name('category.index');
     Route::post('/categories/all', 'CategoryController@all')->name('category.all');
@@ -114,3 +113,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'logout']], function
 
     Route::get('/newsletters', 'NewsletterController@index')->name('newsletters.index');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

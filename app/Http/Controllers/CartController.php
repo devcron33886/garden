@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Mail\NotifyClientMail;
 use App\MyFunc;
+use App\Notifications\NewOrderNotification;
 use App\Order;
 use App\OrderItem;
 use App\Payment;
 use App\Product;
+use App\User;
 use Cart;
 use DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use Mail;
 use Throwable;
@@ -145,6 +148,8 @@ class CartController extends Controller
         $order->setOrderNo('ORD');
         DB::commit();
         Mail::to($order->email)->send(new NotifyClientMail($order));
+        $users=User::where('role','admin')->get();
+        Notification::send($users,new NewOrderNotification($order));
 
         Cart::clear();
         if ($request->input('payment_type') == Payment::CARD_MOBILE_MONEY) {

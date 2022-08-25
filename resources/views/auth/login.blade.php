@@ -34,7 +34,7 @@
                             Login to your account
                         </strong>
                     </p>
-                    <form class="form-auth-small" autocomplete="off" action="{{ route('post.login') }}" method="post">
+                    <form class="form-auth-small" autocomplete="off" action="{{ route('login') }}" method="post">
                         @csrf
                         <div class="form-group {{ $errors->has('user_name')?'has-error':''}}">
                             <label for="signin-email" class="control-label sr-only">Username</label>
