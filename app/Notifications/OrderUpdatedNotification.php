@@ -7,11 +7,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewOrderNotification extends Notification
+class OrderUpdatedNotification extends Notification
 {
     use Queueable;
 
-    public Order $order;
+    private $updatedBy;
+
+    private $order;
 
     /**
      * Create a new notification instance.
@@ -21,6 +23,7 @@ class NewOrderNotification extends Notification
     public function __construct(Order $order)
     {
         $this->order = $order;
+        $this->updatedBy = $order->updatedBy;
     }
 
     /**
@@ -38,16 +41,14 @@ class NewOrderNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail(mixed $notifiable): MailMessage
+    public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('New order', )
-            ->greeting('Hello there is a new order need a review')
-            ->line('New order by '.$this->order->name.' which has order number '.$this->order->id)
-            ->action('Review the order here', url('/admin/orders/'.$this->order->id))
-            ->line('Thank you')
-            ->line(config('app.name').' Team');
+        ->subject('Order #'.$this->order->order_no.' has been updated')
+                    ->line($this->updatedBy->name.' has updated order #'.$this->order->order_no.'status to '.$this->order->status)
+                    ->action('Check it out here', url('http://gardenofedenrwanda.com/admin/orders/'.$this->order->id))
+                    ->line('Thank you!');
     }
 }

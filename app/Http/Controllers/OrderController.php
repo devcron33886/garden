@@ -137,11 +137,12 @@ class OrderController extends Controller
             return response()->json(['message' => 'Not found'], 404);
         }
         $order->status = $request->input('status');
+        $order->updatedBy()->associate(auth()->user());
         $order->update();
 
-        if ($order->status != $prevStatus) {
-            OrderStatusUpdated::dispatch($order, auth()->user());
-        }
+        // if ($order->status != $prevStatus) {
+        //     OrderStatusUpdated::dispatch($order, auth()->user());
+        // }
 
         return response()->json(['data' => $order], 204);
     }

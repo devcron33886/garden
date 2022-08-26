@@ -8,8 +8,6 @@ Auth::routes();
 
 Livewire::component('card-product', CardProduct::class);
 
-
-
 Route::post('/newsletters/subscribe', 'NewsletterController@subscribe')->name('newsletters.subscribe');
 Route::get('/newsletters/{email}/unsubscribe', 'NewsletterController@unsubscribe')->name('newsletters.unsubscribe');
 
@@ -115,7 +113,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     Route::get('/newsletters', 'NewsletterController@index')->name('newsletters.index');
 });
-
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -28,6 +28,7 @@ class NotifyClientMail extends Mailable
     public function build()
     {
         $this->subject('Your order has been placed');
+
         return $this->markdown('emails.notify-client-mail');
     }
 }

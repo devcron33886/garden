@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Category;
+use App\Observers\OrderObserver;
+use App\Order;
 use App\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\UrlGenerator;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('defaultSetting', Setting::first());
         View::share('categories', Category::withCount('products')->latest()->get());
+        Order::observe(OrderObserver::class);
     }
 
     /**

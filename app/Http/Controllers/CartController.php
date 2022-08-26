@@ -148,8 +148,8 @@ class CartController extends Controller
         $order->setOrderNo('ORD');
         DB::commit();
         Mail::to($order->email)->send(new NotifyClientMail($order));
-        $users=User::where('role','admin')->get();
-        Notification::send($users,new NewOrderNotification($order));
+        $users = User::where('role', 'admin')->get();
+        Notification::send($users, new NewOrderNotification($order));
 
         Cart::clear();
         if ($request->input('payment_type') == Payment::CARD_MOBILE_MONEY) {
