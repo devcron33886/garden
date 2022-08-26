@@ -11,7 +11,7 @@ class OrderUpdatedNotification extends Notification
 {
     use Queueable;
 
-    private $updatedBy;
+    private $user;
 
     private $order;
 
@@ -23,7 +23,7 @@ class OrderUpdatedNotification extends Notification
     public function __construct(Order $order)
     {
         $this->order = $order;
-        $this->updatedBy = $order->updatedBy;
+        $this->user = $order->user;
     }
 
     /**
@@ -47,7 +47,7 @@ class OrderUpdatedNotification extends Notification
     {
         return (new MailMessage)
         ->subject('Order #'.$this->order->order_no.' has been updated')
-                    ->line($this->updatedBy->name.' has updated order #'.$this->order->order_no.'status to '.$this->order->status)
+                    ->line($this->user->name.' has updated order #'.$this->order->order_no.'status to '.$this->order->status)
                     ->action('Check it out here', url('http://gardenofedenrwanda.com/admin/orders/'.$this->order->id))
                     ->line('Thank you!');
     }

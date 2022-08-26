@@ -109,8 +109,5 @@ class Order extends Model
         return $this->hasOne(Payment::class);
     }
 
-    public function updatedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
+    
 }
