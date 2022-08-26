@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->softDeletes();
         });
     }
+
+   
 };

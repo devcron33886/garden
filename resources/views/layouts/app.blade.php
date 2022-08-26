@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
     @livewireStyles
     <!-- Google font -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     @yield('styles')
 </head>
@@ -58,7 +58,7 @@
 <!-- /FOOTER -->
 
 @livewireScripts
-<script src="{{ mix('js/app.js') }}" ></script>
+<script src="{{ asset('js/app.js') }}" ></script>
 @yield('scripts')
 
 </body>

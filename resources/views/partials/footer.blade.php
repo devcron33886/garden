@@ -126,9 +126,9 @@ $about = $defaultSetting->about;
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="copyright" style="margin: 20px 0">
-							Copyright &copy; {{ now()->format('Y') }} All rights reserved  | This website made by
+							Copyright &copy; {{ now()->format('Y') }} All rights reserved  | 
                         <a style="color: whitesmoke"
-                           href="mailto:jeanpaulbyiringiro9764@gmail.com">Jean Paul Byiringiro</a>,
+                           href="#">{{ config('app.name') }}</a>,
                     </span>
                 </div>
             </div>
